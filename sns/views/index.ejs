@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("header"); -%>
+  <!-- 불러오기 -->
+
+  <body>
+    <%- include("menu"); -%>
+
+    <!-- Jumbotron -->
+    <div class="jumbotron p-0">
+      <!-- Card image -->
+      <div class="view overlay rounded-top">
+        <img
+          src="https://c0.wallpaperflare.com/preview/61/274/460/astronaut-moon-space-nasa.jpg"
+          class="img-fluid"
+          alt="ferrari fxxk"
+          style="width: 100%;"
+        />
+        <a href="#">
+          <div class="mask rgba-white-slight">
+            <table style="height: 60%; width: 100%;">
+              <tbody>
+                <tr>
+                  <td class="align-bottom">
+                    <div class="text-center align-bottom">
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        onclick="location.href='/post/new'"
+                      >
+                        <% if (user === null) { %> 시작하기 <% } else { %>
+                        글쓰기 <% } %>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </a>
+      </div>
+    </div>
+    <!-- Jumbotron -->
+
+    <%- include("footer.ejs"); -%>
+  </body>
+</html>

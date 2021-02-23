@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); -%>
+  <!-- 불러오기 -->
+
+  <body>
+    <%- include("../menu"); -%>
+
+    <!-- Material form register -->
+    <div>
+      <div class="card">
+        <h5 class="card-header info-color white-text text-center py-4">
+          <strong>Log in</strong>
+        </h5>
+
+        <!--Card content-->
+        <div class="card-body px-lg-5 pt-0">
+          <!-- Form -->
+          <form
+            id="loginform"
+            class="text-center"
+            style="color: #757575;"
+            action="#!"
+          >
+            <!-- Id -->
+            <div class="md-form">
+              <input type="text" id="id" class="form-control" />
+              <label for="id">Id</label>
+            </div>
+
+            <!-- Password -->
+            <div class="md-form">
+              <input type="password" id="password" class="form-control" />
+              <label for="password"
+                >Password (숫자, 영문자, 특수문자가 최소 1개씩 포함되어 6 ~
+                15글자)</label
+              >
+            </div>
+
+            <!-- Log in button -->
+            <button
+              id="button"
+              class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+              type="submit"
+            >
+              Log in
+            </button>
+            <div class="text-right ml-4">
+              or &nbsp;&nbsp;<a href="/user/signup"
+                ><span style="font-size: 0.675em;">Sign Up</span></a
+              >
+            </div>
+
+            <hr />
+            <!-- Terms of service -->
+            <p>
+              By clicking <em>Log in</em> you agree to our
+              <a href="/terms.html" target="_blank">terms of service</a>
+            </p>
+          </form>
+
+          <!-- Form -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Material form register -->
+
+    <%- include("../footer.ejs"); -%>
+
+    <script>
+      $(function () {
+        $("#loginform").submit((event) => {
+          event.preventDefault();
+
+          const id = $("#id").val();
+          const password = $("#password").val();
+
+          $.ajax({
+            url: "/user/login",
+            type: "POST",
+            data: { id, password },
+          })
+            .done((req) => {
+              alert("successfully logged in!");
+              location.href = "/";
+            })
+            .fail((request, status, error) => {
+              alert(request.responseText);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

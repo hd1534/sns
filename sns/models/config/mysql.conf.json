@@ -1,0 +1,62 @@
+[
+  {
+    "model": "Comments",
+    "file": "comments"
+  },
+  {
+    "model": "PostAndTags",
+    "file": "post_and_tags"
+  },
+  {
+    "model": "PostNotTags",
+    "file": "post_not_tags"
+  },
+  {
+    "model": "PostOrTags",
+    "file": "post_or_tags"
+  },
+  {
+    "model": "Posts",
+    "file": "posts"
+  },
+  {
+    "model": "Tags",
+    "file": "tags"
+  },
+  {
+    "model": "UserTags",
+    "file": "user_tags"
+  },
+  {
+    "model": "Permissions",
+    "file": "permissions"
+  },
+  {
+    "model": "RevokedTokens",
+    "file": "revoked_tokens"
+  },
+  {
+    "model": "Students",
+    "file": "students"
+  },
+  {
+    "model": "Users",
+    "file": "users"
+  },
+  {
+    "model": "Mentions",
+    "file": "mentions"
+  },
+  {
+    "model": "Notifications",
+    "file": "notifications"
+  },
+  {
+    "model": "PostAssessments",
+    "file": "post_assessments"
+  },
+  {
+    "model": "PostReports",
+    "file": "post_reports"
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "name": "sns",
+  "version": "1.0.3",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "nodemon": "nodemon ./bin/www"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-bearer-token": "^2.4.0",
+    "express-fileupload": "^1.1.7-alpha.3",
+    "http-errors": "~1.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.16",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.12",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4",
+    "xss": "^1.0.7"
+  },
+  "devDependencies": {
+    "@alt3/sequelize-to-json-schemas": "^0.3.50",
+    "husky": "^4.2.5",
+    "json-to-pretty-yaml": "^1.2.2",
+    "mongoose-to-swagger": "^1.0.3",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1"
+  }
+}

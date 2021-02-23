@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); -%>
+  <!-- 불러오기 -->
+
+  <body>
+    <%- include("../menu"); -%>
+
+    <form id="createForm">
+      <div class="md-form">
+        <input type="text" id="title" class="form-control" required />
+        <label for="title">제목</label>
+      </div>
+      <div class="md-form">
+        <input type="text" id="content" class="form-control" required />
+        <label for="content">내용</label>
+      </div>
+      <div class="md-form">
+        <input type="text" id="img_url" class="form-control" />
+        <label for="img_url">이미지 주소</label>
+      </div>
+      <button type="submit" class="btn btn-primary">저장</button>
+    </form>
+
+    <%- include("../footer.ejs"); -%>
+
+    <script>
+      $(function () {
+        $("#createForm").submit((event) => {
+          event.preventDefault();
+
+          const title = $("#title").val();
+          const content = $("#content").val();
+          const img_url = $("#img_url").val();
+
+          $.ajax({
+            url: "/post",
+            type: "POST",
+            data: { title, content, img_url },
+          })
+            .done(() => {
+              location.href = "/post/list";
+            })
+            .fail((request, status, error) => {
+              alert(request.responseText);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

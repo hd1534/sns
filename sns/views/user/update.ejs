@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); -%>
+  <!-- 불러오기 -->
+
+  <body>
+    <%- include("../menu"); -%>
+
+    <form id="updateForm">
+      <div class="md-form">
+        <input
+          type="text"
+          id="name"
+          class="form-control"
+          value="<%= user.name %>"
+          required
+        />
+        <label for="name">이름</label>
+      </div>
+
+      <div class="md-form">
+        <input
+          type="text"
+          id="email"
+          class="form-control"
+          value="<%= user.email %>"
+          required
+        />
+        <label for="email">이메일</label>
+      </div>
+      <button type="submit" class="btn btn-primary">수정</button>
+    </form>
+
+    <%- include("../footer.ejs"); -%>
+
+    <script>
+      $(function () {
+        $("#updateForm").submit((event) => {
+          event.preventDefault();
+
+          const name = $("#name").val();
+          const email = $("#email").val();
+          // const img_url = $("#img_url").val();
+
+          $.ajax({
+            url: "/user/idx/<%= user.idx %>",
+            type: "PUT",
+            data: { name, email },
+          })
+            .done(() => {
+              console.log("successfully changed, please login again");
+              location.href = "/user/logout";
+            })
+            .fail((request, status, error) => {
+              alert(request.responseText);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

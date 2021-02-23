@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); -%>
+  <!-- 불러오기 -->
+
+  <body>
+    <%- include("../menu"); -%>
+
+    <!-- Jumbotron -->
+    <div class="jumbotron p-0">
+      <!-- Card image -->
+      <div class="view rounded-top">
+        <img
+          src="https://c0.wallpaperflare.com/preview/61/274/460/astronaut-moon-space-nasa.jpg"
+          class="img-fluid"
+          alt="ferrari fxxk"
+          style="width: 100%;"
+        />
+        <a href="#">
+          <div class="mask rgba-white-slight">
+            <!-- Card -->
+            <div
+              class="card testimonial-card text-center justify-content-center mx-auto"
+            >
+              <!-- Background color -->
+              <div class="card-up indigo lighten-1"></div>
+
+              <!-- Avatar -->
+              <div class="avatar mx-auto white">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU"
+                  class="rounded-circle"
+                  alt="avatar"
+                />
+              </div>
+
+              <!-- Content -->
+              <div class="card-body">
+                <!-- Name -->
+                <h4 class="card-title"><%= result.name %></h4>
+                <hr />
+                <!-- Quotation -->
+                <p>
+                  email : <%= result.email %></br>
+                  gender : <%= result.gender %></br>
+                  id : <%= result.id %></p>
+
+                  <button
+                  type="button"
+                  class="btn btn-light-blue btn-md"
+                  onclick="location.href='/user/idx/<%=result.idx%>/edit'"
+                >
+                  수정하기
+                </button>
+              </div>
+            </div>
+            <!-- Card -->
+          </div>
+        </a>
+      </div>
+    </div>
+    <!-- Jumbotron -->
+
+    <%- include("../footer.ejs"); -%>
+  </body>
+</html>

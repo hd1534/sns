@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); -%>
+  <!-- 불러오기 -->
+
+  <body>
+    <%- include("../menu"); -%>
+
+    <div class="md-form">
+      <input
+        type="text"
+        id="title"
+        class="form-control"
+        value="<%= result.title %>"
+        readonly
+      />
+      <label for="title">제목</label>
+    </div>
+    <div class="md-form">
+      <input
+        type="text"
+        id="content"
+        class="form-control"
+        value="<%= result.content %>"
+        readonly
+      />
+      <label for="content">내용</label>
+    </div>
+    <div class="md-form">
+      <input
+        type="text"
+        id="likes"
+        class="form-control"
+        value="<%= result.likes %>"
+        readonly
+      />
+      <label for="likes">좋아요</label>
+    </div>
+    <div class="view overlay">
+      <img class="card-img-top" src= "<%= result.img_url %>"" alt="post image
+      cap" />
+      <a href="#!">
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+
+    <% if (user.idx === result.writer.idx) { %>
+    <button
+      type="button"
+      class="btn btn-primary"
+      onclick="location.href='/post/_id/<%= result._id %>/edit'"
+    >
+      수정
+    </button>
+    <button id="deleteBtn" type="button" class="btn btn-primary">삭제</button>
+
+    <%- include("../footer.ejs"); -%>
+
+    <script>
+      $(function () {
+        $("#deleteBtn").on("click", () => {
+          event.preventDefault();
+          if (confirm("삭제하시겠습니까?")) {
+            $.ajax({
+              url: "/post/_id/<%= result._id %>",
+              type: "DELETE",
+            })
+              .done(() => {
+                location.href = "/post/list";
+              })
+              .fail((request, status, error) => {
+                alert(request.responseText);
+              });
+          } else {
+            // 취소
+          }
+        });
+      });
+    </script>
+    <% } else { %> <% if (result.liked_people_idxs.includes(user.idx)) { %>
+    <button id="unLikeBtn" type="button" class="btn btn-danger">
+      좋아요 취소 <% } else { %>
+      <button id="likeBtn" type="button" class="btn btn-primary">
+      좋아요 <% } %>
+    </button>
+    <%- include("../footer.ejs"); -%>
+
+    <script>
+      $(function () {
+        $("#likeBtn").on("click", () => {
+          event.preventDefault();
+            $.ajax({
+              url: "/post/_id/<%= result._id %>/like",
+              type: "GET",
+            })
+              .done(() => {
+                window.location.reload()
+              })
+              .fail((request, status, error) => {
+                alert(request.responseText);
+              });
+        });
+      });
+    </script>
+    
+    <script>
+      $(function () {
+        $("#unLikeBtn").on("click", () => {
+          event.preventDefault();
+            $.ajax({
+              url: "/post/_id/<%= result._id %>/unlike",
+              type: "GET",
+            })
+              .done(() => {
+                window.location.reload()
+              })
+              .fail((request, status, error) => {
+                alert(request.responseText);
+              });
+        });
+      });
+    </script>
+    <% } %>
+  </br>
+</div>
+  <!-- Card content -->
+  <div class="row d-flex justify-content-center mb-5 mt-4" style="width: 100%;">
+  <div class="card" style="width: 80%;">
+    <div class="card-body">
+
+    <!-- Title -->
+    <h4 class="card-title text-center">댓글 쓰기</h4>
+    <hr>
+
+    <div class="row d-flex justify-content-center" style="width: 100%;">
+    <!-- Default horizontal form -->
+    <form id="commentForm" style="width: 80%;text-align: center;" >
+      <!-- Grid row -->
+      <div class="form-group row">
+        <!-- Default input -->
+        <label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputTitle" placeholder="제목">
+        </div>
+      </div>
+  <!-- Grid row -->
+
+  <!-- Grid row -->
+  <div class="form-group row">
+    <!-- Default input -->
+    <label for="inputContent" class="col-sm-2 col-form-label">내용</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputContent" placeholder="내용">
+    </div>
+  </div>
+  <!-- Grid row -->
+
+  <!-- Grid row -->
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary btn-md">댓글 달기</button>
+    </div>
+  </div>
+</div>
+  <!-- Grid row -->
+</form>
+<!-- Default horizontal form -->
+</div>
+</div>
+</div>
+<script>
+  $(function () {
+    $("#commentForm").submit((event) => {
+      event.preventDefault();
+
+      const title = $("#inputTitle").val();
+      const content = $("#inputContent").val();
+
+      $.ajax({
+        url: "/post/_id/<%= result._id %>/comment",
+        type: "POST",
+        data: { title, content },
+      })
+        .done(() => {
+          window.location.reload()
+        })
+        .fail((request, status, error) => {
+          alert(request.responseText);
+        });
+    });
+  });
+</script>
+
+    <h3> 댓글 : <%= result.comments.length %> </h3>
+<div class="row justify-content-center" style="width: 100%;">
+    <!-- Card deck -->
+    <div class="row row-cols-1 row-cols-md-1 " style="width: 80%;">
+    <% result.comments.forEach(comment => { %>
+
+    <!-- Card -->
+<div class="card mb-4">
+
+  <!-- Card content -->
+  <div class="card-body">
+
+    <!-- Title -->
+    <h4 class="card-title"><%= comment.title %></h4>
+    <hr>
+    <!-- Text -->
+    <p class="card-text"><%= comment.content %></p>
+
+  </div>
+
+  <!-- Card footer -->
+  <div class="rounded-bottom mdb-color lighten-3 text-center pt-3">
+    <ul class="list-unstyled list-inline font-small">
+      <li class="list-inline-item pr-2 white-text"><i class="far fa-clock pr-1"></i><%=comment.date.toISOString().replace(/T/, ' ').
+        replace(/\..+/, '')%></li>
+      <li class="list-inline-item pr-2"><a href="#" class="white-text"><i
+            class="far fa-comments pr-1"></i>12</a></li>
+      <li class="list-inline-item"><a href="#" class="white-text"> 작성자 : <%= comment.writer.name %></a> </li>
+    </ul>
+  </div>
+
+</div>
+<!-- Card -->
+<% }) %>
+</div>
+<!-- Card deck -->
+</div>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); -%>
+  <!-- 불러오기 -->
+
+  <body>
+    <%- include("../menu"); -%>
+
+    <!-- Material form register -->
+    <div>
+      <div class="card">
+        <h5 class="card-header info-color white-text text-center py-4">
+          <strong>Sign up</strong>
+        </h5>
+
+        <!--Card content-->
+        <div class="card-body px-lg-5 pt-0">
+          <!-- Form -->
+          <form
+            id="signupform"
+            class="text-center"
+            style="color: #757575;"
+            action="#!"
+          >
+            <!--  id -->
+            <div class="md-form">
+              <input type="text" id="id" class="form-control" />
+              <label for="id">id</label>
+            </div>
+
+            <!--  name -->
+            <div class="md-form">
+              <input type="text" id="name" class="form-control" />
+              <label for="name">name</label>
+            </div>
+
+            <!-- E-mail -->
+            <div class="md-form mt-0">
+              <input type="email" id="email" class="form-control" />
+              <label for="email">E-mail</label>
+            </div>
+
+            <!-- Password -->
+            <div class="md-form">
+              <input type="password" id="password" class="form-control" />
+              <label for="password"
+                >Password (숫자, 영문자, 특수문자가 최소 1개씩 포함되어 6 ~
+                15글자</label
+              >
+            </div>
+
+            <!-- Sign up button -->
+            <button
+              id="button"
+              class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+              type="submit"
+            >
+              Sign up
+            </button>
+
+            <!-- Terms of service -->
+            <p>
+              By clicking <em>Sign up</em> you agree to our
+              <a href="/terms.html" target="_blank">terms of service</a>
+            </p>
+          </form>
+
+          <!-- Form -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Material form register -->
+
+    <%- include("../footer.ejs"); -%>
+
+    <script>
+      $(function () {
+        $("#signupform").submit((event) => {
+          event.preventDefault();
+
+          const id = $("#id").val();
+          const name = $("#name").val();
+          const email = $("#email").val();
+          const password = $("#password").val();
+
+          $.ajax({
+            url: "/user",
+            type: "POST",
+            data: { id, name, email, password },
+          })
+            .done(() => {
+              alert("successfully created!");
+              location.href = "/user/login";
+            })
+            .fail((request, status, error) => {
+              alert(request.responseText);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

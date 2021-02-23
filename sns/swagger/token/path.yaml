@@ -1,0 +1,24 @@
+tags:
+  - name: "token"
+    description: "token method"
+    externalDocs:
+      description: "JWT"
+      url: "https://echo.dimigo.in/"
+paths:
+  /token:
+    post:
+      tags:
+        - "token"
+      summary: "get JWT token"
+      description: "get user jwt token"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "id passowrd is required"
+          required: true
+          schema:
+            $ref: "#/definitions/loginModel"
+
+      responses:
+        200:
+          description: hi world
